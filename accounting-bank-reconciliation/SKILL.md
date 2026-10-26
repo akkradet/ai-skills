@@ -1,125 +1,173 @@
 ---
 name: accounting-bank-reconciliation
-description: Use when preparing or verifying bank reconciliations (งบพิสูจน์ยอดเงินฝากธนาคาร), reconciling general ledger cash balances against bank statements, identifying deposits in transit, outstanding checks, bank charges, interest, NSF returned checks, posting adjusting journal entries, or conducting vendor, customer, and e-commerce marketplace reconciliations (Shopee, Lazada, TikTok Shop).
+description: Use when preparing, analyzing, or verifying monthly Bank Reconciliations (งบกระทบยอดเงินฝากธนาคาร), decoding Thai bank statement transaction codes (ATS, TR, CHQ, FEE, INT), distinguishing Bank Statements from Passbooks and Bank Confirmations, resolving differences between bank balances and general ledger cash balances, posting required adjusting journal entries, or setting up bank feed integrations.
 ---
 
-# Financial & Bank Reconciliation (การกระทบยอดธนาคารและบัญชีการเงิน)
+# Bank Statement Analysis & Bank Reconciliation (การอ่านสเตทเม้นและการทำงบกระทบยอดธนาคาร)
 
 ## Overview
 
-Reconciliation (การกระทบยอด) is the internal control procedure of comparing two sets of financial records—an internal ledger versus an external or independent source—to verify mathematical agreement, identify timing differences, detect errors, and prevent fraud.
+A **Bank Statement (ใบแจ้งยอดบัญชีธนาคาร)** is an official record issued by a commercial bank summarizing all historical inflows, outflows, and running balances for a specific period. 
 
-The most critical corporate reconciliation is the **Bank Reconciliation (งบพิสูจน์ยอดเงินฝากธนาคาร)**, which reconciles the general ledger cash/bank account against the official Bank Statement issued by the financial institution.
+**Bank Reconciliation (งบกระทบยอดเงินฝากธนาคาร หรือ งบพิสูจน์ยอดเงินฝากธนาคาร)** is the essential monthly internal control process of identifying and proving all differences between the ending balance reported on the bank statement and the ending balance shown in the company's general ledger (Book Balance), ensuring no discrepancies, unrecorded fees, NSF returned checks, or fraudulent transactions remain unaccounted for.
 
 ---
 
-## 1. Bank Reconciliation Framework: Correct Balance Method
+## 1. Key Document Differences (เอกสาร 3 ชนิดที่ต้องแยกแยะ)
 
-Under the **Correct Balance Method (วิธีหายอดเงินฝากที่ถูกต้อง)**, both the Bank Statement balance and the Book balance are adjusted simultaneously until they converge to the exact same corrected figure:
+| เอกสารทางการเงิน | ผู้ออกเอกสาร | วัตถุประสงค์หลัก | การรับรองทางกฎหมาย |
+|---|---|---|---|
+| **Bank Statement (ใบแจ้งยอดบัญชีธนาคาร)** | ธนาคารพาณิชย์ (ออกประจำเดือน หรือขอผ่าน Online Banking) | แสดงรายละเอียดทุกรายการเคลื่อนไหว (Inflows/Outflows) พร้อมรหัสธุรกรรม ยอดดุลยกมา-ยกไป | ใช้เป็นหลักฐานทำงบกระทบยอด ยื่นขอสินเชื่อ และตรวจสอบบัญชีภาษี |
+| **Passbook (สมุดบัญชีคู่ฝาก)** | ธนาคารพาณิชย์ (อัปเดตยอดผ่านตู้ปรับสมุด) | แสดงรายการย่อแบบเรียลไทม์ หากไม่อัปเดตนาน รายการจะถูกรวบยอด (Consolidated) | ขาดรายละเอียดรหัสธุรกรรมเฉพาะตัว ไม่เหมาะสำหรับตรวจงบการเงิน |
+| **Bank Confirmation (หนังสือยืนยันยอดธนาคาร)** | ธนาคารพาณิชย์ (ส่งตรงถึงผู้สอบบัญชีรับอนุญาต - CPA) | ยืนยันยอดเงินฝากทุกบัญชี หนี้สินเงินกู้ ภาระค้ำประกัน (L/C, ABL) ณ วันสิ้นงวด | หลักฐานชั้นหนึ่งตามมาตรฐานการสอบบัญชี (TSA 505) ป้องกันการตกแต่งบัญชี |
+
+---
+
+## 2. Common Thai Bank Statement Transaction Codes (รหัสธุรกรรมในสเตทเม้นไทย)
+
+เมื่ออ่าน Bank Statement ของธนาคารในไทย (เช่น KBANK, SCB, BBL, KTB, TTB) นักบัญชีต้องเข้าใจความหมายของรหัสย่อ:
+
+| รหัสย่อ (Code) | คำอธิบายภาษาไทย | Transaction Description | ผลกระทบต่อบัญชีบริษัท (Accounting Treatment) |
+|:---:|---|---|---|
+| **B/F** | ยอดยกมาต้นงวด | Brought Forward Balance | จุดเริ่มต้นกระทบยอด (Opening Balance) |
+| **TR / XFER** | โอนเงิน | Fund Transfer (โอนเข้า / โอนออก) | ตรวจสอบสลิปว่าเป็นการรับชำระจากลูกค้า หรือจ่ายชำระเจ้าหนี้ |
+| **ATS / Direct Debit** | หักบัญชีอัตโนมัติ | Auto Transfer System (ค่าน้ำ ค่าไฟ ภาษี) | บันทึกเป็นค่าใช้จ่ายตัดเงินฝากทันทีที่เห็น Statement |
+| **CHQ / CL** | รายการเช็ค | Cheque Deposit or Withdrawal | เทียบกับทะเบียนคุมเช็ค (Cheque Register) |
+| **CW** | ถอนเงินสด | Cash Withdrawal (ตู้ ATM หรือสาขา) | ตรวจสอบว่าเป็นการนำเงินเข้าวงเงินสดย่อย (Petty Cash) หรือไม่ |
+| **CD** | ฝากเงินสด | Cash Deposit (ตู้ CDM หรือสาขา) | บันทึกรับชำระหนี้หรือยอดขายเงินสด |
+| **INT** | ดอกเบี้ยรับ | Interest Earned | บันทึก **Cr. ดอกเบี้ยรับ (Interest Income)** ฝั่งบริษัท |
+| **FEE / SC** | ค่าธรรมเนียมธนาคาร | Service Charge / Bank Fee | บันทึก **Dr. ค่าธรรมเนียมธนาคาร (Bank Charges)** ฝั่งบริษัท |
+| **NSF / RD** | เช็คคืน (เช็คเด้ง) | Non-Sufficient Funds / Return Cheque | กลับรายการเป็น **Dr. ลูกหนี้การค้า (AR)** และลดเงินฝากธนาคาร |
+| **QR / EDC** | ยอดรูดบัตร / QR Code | Merchant settlement payment | เทียบยอดขายหน้าร้าน หักค่าธรรมเนียมรูดบัตร (MDR fee) |
+
+---
+
+## 3. The 4 Root Causes of Reconciliation Discrepancies (4 สาเหตุยอดไม่ตรง)
 
 ```
-[Bank Statement Balance]                        [General Ledger Book Balance]
-  + Deposits in Transit (เงินฝากระหว่างทาง)         + Bank Collections / Notes / Interest
-  - Outstanding Checks (เช็คสั่งจ่ายค้างขึ้นเงิน)    - Bank Service Charges & Fees
-  ± Bank Recording Errors                         - Non-Sufficient Funds (NSF เช็คคืน)
-                                                  ± Company Book Errors
-           ||                                              ||
-           \/                                              \/
- [Adjusted Bank Balance]       <=== MUST EQUAL ===>   [Adjusted Book Balance]
+                              สาเหตุที่ยอดเงิน 2 ฝั่งไม่ตรงกัน
+                                             |
+            +--------------------------------+-------------------------------+
+            |                                                                |
+   ฝั่งธนาคารยังไม่ได้บันทึก                                        ฝั่งบริษัทยังไม่ได้บันทึก
+   (Bank Has Not Recorded)                                         (Book Has Not Recorded)
+            |                                                                |
+   1. เงินฝากระหว่างทาง (Deposits in Transit: DIT)                   1. ธนาคารเพิ่มเงิน: ดอกเบี้ยรับ, เงินโอนตรง
+   2. เช็คค้างจ่าย (Outstanding Checks: O/S Checks)                  2. ธนาคารตัดเงิน: ค่าธรรมเนียม, ค่าบริการ ATS
+                                                                    3. เช็คคืน (NSF Returned Cheque)
+                                             |
+                         +-------------------+-------------------+
+                         |                                       |
+                   ข้อผิดพลาดของธนาคาร                     ข้อผิดพลาดของบริษัท
+                   (Bank Recording Errors)                (Book Recording Errors)
 ```
 
-### Standard Reconciliation Statement Format
+1. **เงินฝากระหว่างทาง (Deposits in Transit: DIT):** กิจการบันทึกรับเงินและนำฝากแล้วในวันสิ้นงวด แต่ระบบธนาคารตัดรอบเป็นวันทำการถัดไป
+2. **เช็คค้างจ่าย (Outstanding Checks):** กิจการจ่ายเช็คให้เจ้าหนี้และบันทึกตัดบัญชีแล้ว แต่เจ้าหนี้ยังไม่ได้นำเช็คไปขึ้นเงินที่ธนาคาร
+3. **รายการที่ธนาคารบันทึกแล้วแต่บริษัทยังไม่บันทึก:** ค่าธรรมเนียมดูแลบัญชี, ดอกเบี้ยรับสุทธิ, ลูกค้าโอนเงินเข้าตรงโดยไม่แจ้งสลิป, ค่าธรรมเนียมระบบหักอัตโนมัติ
+4. **ข้อผิดพลาดทางบัญชี (Errors):** คีย์ตัวเลขสลับหลัก (Transposition Error เช่น 5,400 ลงเป็น 4,500) หรือบันทึกบัญชีซ้ำซ้อน
 
-| Bank Statement Adjustments | Amount (THB) | Book Balance Adjustments | Amount (THB) |
+---
+
+## 4. Step-by-Step Bank Reconciliation Workflow (ขั้นตอน 4 ขั้น)
+
+### ขั้นตอนที่ 1: รวบรวมเอกสารและยอดยกไป
+- ดึง **Bank Statement** สิ้นงวดจากธนาคาร (Statement Ending Balance)
+- ดึง **สมุดบัญชีเงินฝากธนาคาร (General Ledger: GL Account 1102)** สิ้นงวด (Book Ending Balance)
+
+### ขั้นตอนที่ 2: เปรียบเทียบรายการ (Matching / Ticking)
+- เทียบรายการเงินฝากในบัญชีบริษัท กับ คอลัมน์ Credit (เงินเข้า) ใน Statement
+- เทียบรายการถอน/จ่ายในบัญชีบริษัท กับ คอลัมน์ Debit (เงินออก) ใน Statement
+- ทำเครื่องหมาย $\checkmark$ รายการที่ตรงกัน รายการที่ไม่มีคู่ให้วงกลมไว้เป็นส่วนต่าง
+
+### ขั้นตอนที่ 3: หาสาเหตุและจัดหมวดหมู่ส่วนต่าง
+- จำแนกว่าแต่ละรายการที่วงกลมไว้ เป็นหน้าที่ของ **ฝั่งธนาคาร** ที่ต้องปรับ หรือเป็นหน้าที่ของ **ฝั่งบริษัท** ที่ต้องปรับ
+
+### ขั้นตอนที่ 4: จัดทำงบกระทบยอดวิธีหายอดที่ถูกต้อง (Adjusted Balance Method)
+ทั้งสองฝั่งต้องคำนวณจนได้ **Adjusted Balance ที่เท่ากันทุกประการ**:
+
+$$\text{Adjusted Bank Balance} = \text{Bank Balance} + \text{DIT} - \text{O/S Checks} \pm \text{Bank Errors}$$
+$$\text{Adjusted Book Balance} = \text{Book Balance} + \text{Bank Collections/Interest} - \text{Bank Charges/NSF} \pm \text{Book Errors}$$
+
+---
+
+## 5. Comprehensive Example & Journal Entries (ตัวอย่างพร้อมบันทึกบัญชี)
+
+### ข้อมูลเปรียบเทียบ ณ วันที่ 31 มกราคม 2569:
+- ยอดคงเหลือตาม Bank Statement: **458,200 บาท**
+- ยอดคงเหลือตามสมุดบัญชีเงินฝากธนาคาร (GL): **423,700 บาท**
+- ตรวจพบรายการส่วนต่างดังนี้:
+  1. กิจการนำเงินฝากเข้าธนาคารตอนเย็นวันที่ 31 ม.ค. จำนวน **55,000 บาท** ธนาคารลงวันที่ 1 ก.พ. (เงินฝากระหว่างทาง)
+  2. กิจการสั่งจ่ายเช็คเลขที่ 401 ให้เจ้าหนี้ **72,000 บาท** และเช็คเลขที่ 402 จำนวน **25,000 บาท** ผู้ถือเช็คยังไม่นำไปขึ้นเงิน (เช็คค้างจ่าย)
+  3. ธนาคารคิดค่าธรรมเนียมการโอนและค่ารักษาบัญชี **1,500 บาท** กิจการยังไม่ได้บันทึก
+  4. ธนาคารจ่ายดอกเบี้ยเงินฝากเข้าบัญชี **4,000 บาท** กิจการยังไม่ได้บันทึก
+  5. ลูกค้า บจก. ที โอนเงินเข้าบัญชีตรง **10,000 บาท** เพื่อชำระหนี้ แต่ไม่ได้ส่งสลิปแจ้ง
+  6. เช็ครับจากลูกค้า บจก. พี จำนวน **20,000 บาท** ธนาคารส่งคืนระบุเงินในบัญชีไม่พอ (NSF Check)
+
+### งบพิสูจน์ยอดเงินฝากธนาคาร (Bank Reconciliation Statement)
+**บริษัท ก้าวหน้าพาณิชย์ จำกัด**  
+**งบพิสูจน์ยอดเงินฝากธนาคาร ณ วันที่ 31 มกราคม 2569**
+
+| การปรับปรุงยอดตามใบแจ้งยอดธนาคาร (Bank) | จำนวนเงิน (บาท) | การปรับปรุงยอดตามสมุดบัญชีกิจการ (Book) | จำนวนเงิน (บาท) |
 |---|---:|---|---:|
-| **Balance per Bank Statement** | **X,XXX** | **Balance per Books (Ledger)** | **Y,YYY** |
-| *Add:* Deposits in Transit (เงินฝากระหว่างทาง) | + A | *Add:* Collections by Bank (ตั๋วเงินรับ/เงินโอน) | + D |
-| *Add:* Bank Errors (understated deposits) | + B | *Add:* Interest Earned (ดอกเบี้ยรับ) | + E |
-| | | *Add:* Book Errors (overstated disbursements) | + F |
-| *Less:* Outstanding Checks (เช็คค้างจ่าย) | (C) | *Less:* Bank Charges & Fees (ค่าธรรมเนียม) | (G) |
-| *Less:* Bank Errors (overstated deposits) | (D) | *Less:* NSF Returned Checks (เช็คคืนเงินไม่พอ) | (H) |
-| | | *Less:* Book Errors (understated disbursements) | (I) |
-| **Adjusted Bank Balance** | **Z,ZZZ** | **Adjusted Book Balance** | **Z,ZZZ** |
+| **ยอดคงเหลือตามใบแจ้งยอดธนาคาร** | **458,200** | **ยอดคงเหลือตามสมุดบัญชีของกิจการ** | **423,700** |
+| *บวก:* เงินฝากระหว่างทาง (DIT) | + 55,000 | *บวก:* ดอกเบี้ยรับจากธนาคาร | + 4,000 |
+| | | *บวก:* ลูกค้าโอนชำระหนี้ตรง (บจก. ที) | + 10,000 |
+| *หัก:* เช็คสั่งจ่ายค้างขึ้นเงิน (O/S Checks): | | *หัก:* ค่าธรรมเนียมธนาคาร | (1,500) |
+| - เช็คเลขที่ 401: 72,000 | | *หัก:* เช็คคืนเงินไม่พอ (NSF - บจก. พี) | (20,000) |
+| - เช็คเลขที่ 402: 25,000 | (97,000) | | |
+| **ยอดเงินฝากที่ถูกต้อง (Adjusted Bank)** | **416,200** | **ยอดเงินฝากที่ถูกต้อง (Adjusted Book)** | **416,200** |
+
+> ยอดทั้งสองฝั่งเท่ากันที่ **416,200 บาท** ถือว่างบกระทบยอดเสร็จสมบูรณ์
 
 ---
 
-## 2. Rule for Adjusting Journal Entries
+## 6. Adjusting Journal Entries (การบันทึกรายการปรับปรุงบัญชี)
 
-> **Golden Rule of Bank Reconciliation:**
-> **Only adjustments made to the BOOK side require journal entries in the general ledger.**
-> Items adjusting the Bank Statement (e.g., Deposits in Transit, Outstanding Checks) are timing differences that the bank will clear automatically; they are **never** recorded in company accounting journals.
+> **The Golden Rule:**  
+> **เฉพาะรายการปรับปรุงฝั่ง BOOK (สมุดบัญชี) เท่านั้นที่ต้องลงบันทึกในสมุดรายวันทั่วไป (JV)**  
+> รายการฝั่ง Bank (เงินฝากระหว่างทาง, เช็คค้างจ่าย) เป็นเรื่องของเวลา ธนาคารจะเคลียร์เองอัตโนมัติ **ห้ามลงบัญชีเด็ดขาด**
 
-### Standard Period-End Journal Entries (Book Adjustments)
+บันทึกในสมุดรายวันทั่วไป ณ วันที่ 31 มกราคม 2569:
 
-#### A. Direct Deposits, Collections, and Interest Earned:
-- **Dr.** Cash at Bank (เงินฝากธนาคาร)
-- **Cr.** Notes / Accounts Receivable (ตั๋วเงินรับ / ลูกหนี้การค้า)
-- **Cr.** Interest Income (ดอกเบี้ยรับ)
-
-#### B. Bank Service Fees & Transaction Charges:
-- **Dr.** Bank Charges Expense (ค่าธรรมเนียมธนาคาร)
-- **Cr.** Cash at Bank (เงินฝากธนาคาร)
-
-#### C. Customer Bounced / NSF Check (เช็คคืน):
-- **Dr.** Accounts Receivable (ลูกหนี้การค้า - ตั้งลูกหนี้กลับคืน)
-- **Cr.** Cash at Bank (เงินฝากธนาคาร)
-
-#### D. Correction of Book Disbursing Error (e.g., Check written for 2,400 THB but booked as 4,200 THB):
-- **Dr.** Cash at Bank (เงินฝากธนาคาร) 1,800
-- **Cr.** Office Supplies / Expense (ค่าใช้จ่ายสำนักงาน) 1,800
-
----
-
-## 3. The 5-Step Reconciliation Workflow
-
-```
-Step 1: Gather Records       ===> Bank Statement & Cash Book for the exact matching period.
-Step 2: Tick-and-Cross Match ===> Match line-by-line: dates, amounts, check numbers.
-Step 3: Extract Open Items   ===> Separate unmatched items into DIT, O/S checks, bank charges, NSF.
-Step 4: Draft Statement      ===> Calculate Adjusted Bank & Book balances. Resolve differences.
-Step 5: Post JVs & Archive   ===> Post book adjustment JVs; file signed reconciliation for audit.
+### 1. บันทึกเงินโอนรับจากลูกหนี้และดอกเบี้ยรับ:
+```text
+Dr. เงินฝากธนาคาร (Cash at Bank)                       14,000
+    Cr. ลูกหนี้การค้า - บจก. ที (Accounts Receivable)            10,000
+    Cr. รายได้ดอกเบี้ย (Interest Income)                         4,000
+(บันทึกเงินโอนชำระหนี้จากลูกหนี้และดอกเบี้ยรับตาม Bank Statement)
 ```
 
-*Audit Retention:* Retain signed bank reconciliation statements, monthly bank statements, and deposit slips for at least **5 years** under the Accounting Act B.E. 2543.
+### 2. บันทึกค่าธรรมเนียมธนาคาร:
+```text
+Dr. ค่าธรรมเนียมธนาคาร (Bank Charges)                    1,500
+    Cr. เงินฝากธนาคาร (Cash at Bank)                            1,500
+(บันทึกค่าธรรมเนียมธนาคารประจำเดือน ม.ค. 2569)
+```
+
+### 3. บันทึกเช็คคืน (NSF Returned Cheque):
+```text
+Dr. ลูกหนี้การค้า - บจก. พี (Accounts Receivable)            20,000
+    Cr. เงินฝากธนาคาร (Cash at Bank)                           20,000
+(ตั้งลูกหนี้การค้ากลับคืนเนื่องจากเช็คเรียกเก็บเงินไม่ได้)
+```
 
 ---
 
-## 4. Other Vital Business Reconciliations
+## 7. Modern Methods: Bank Feed API vs. Manual Import
 
-Beyond bank statements, three other reconciliation processes are essential for commercial entities:
-
-### 4.1 Vendor / AP Reconciliation (กระทบยอดเจ้าหนี้การค้า)
-- **Data compared:** Internal Accounts Payable Sub-ledger **vs.** Supplier's Statement of Account.
-- **Key differences:**
-  - Invoices for goods received but missing in AP (unbilled goods receipt notes).
-  - Unapplied supplier credit notes (CN) for damaged goods or purchase returns.
-  - Payments in transit dispatched by the company but not yet cleared by the vendor.
-- **Goal:** Prevent duplicate payments and maintain trade credit.
-
-### 4.2 Customer / AR Reconciliation (กระทบยอดลูกหนี้การค้า)
-- **Data compared:** Internal Accounts Receivable Sub-ledger **vs.** Customer Payment Advices.
-- **Key differences:**
-  - Customer deductions for 3% withholding tax without mailing the 50 ทวิ certificate.
-  - Short-payments due to disputed damaged goods or unauthorized cash discounts.
-  - Unidentified customer bank transfers (ยอดเงินโอนไม่ทราบผู้โอน).
-- **Goal:** Prevent aged bad debts and speed up dispute resolution.
-
-### 4.3 E-Commerce Marketplace Reconciliation (Shopee / Lazada / TikTok Shop)
-- **Data compared:** Sales Orders & GMV in Accounting/ERP **vs.** Platform Settlement & Payout Reports.
-- **Key differences:**
-  - **Platform Deductions:** Marketplace commission fees (3–7%), payment transaction fees (2–3%), service fees, and voucher subsidies deducted at source.
-  - **Shipping Overcharges (ค่าขนส่งส่วนเกิน):** Discrepancies between estimated parcel weight and courier actual measured weight deducted from payout.
-  - **Settlement Cut-off Timing:** Orders fulfilled in late December paid out in early January.
-- **Goal:** Accurately recognize gross revenue while booking platform fees as selling expenses, rather than netting them directly against revenue.
+| รูปแบบการนำเข้าข้อมูล | วิธีการดำเนินงาน | ข้อดี | ข้อควรระวัง |
+|---|---|---|---|
+| **1. Direct Bank Feed (API)** | เชื่อมต่อระบบบัญชี (เช่น PEAK) กับระบบ Open Banking ของธนาคารโดยตรง | รายการเข้าอัตโนมัติทุกวัน ไม่ต้องขอสเตทเม้น กระทบยอดแบบ Real-time | ต้องตั้งค่าสิทธิ์ความปลอดภัยและระบบสองชั้น (2FA) |
+| **2. Digital File (PDF / Excel / CSV)** | ดาวน์โหลดไฟล์ Statement จาก Corporate Online Banking มาอัปโหลดเข้าโปรแกรม | รวดเร็ว ลดความผิดพลาดจากการคีย์มือ ข้อมูลครบถ้วน | ตรวจสอบรูปแบบคอลัมน์และวันที่ของแต่ละธนาคารให้ตรง Template |
+| **3. Paper Statement (กระดาษ)** | นำสเตทเม้นกระดาษมาไล่ขีดตรวจด้วยปากกาและคีย์ตัวเลข | เหมาะกับเอกสารหลักฐานยื่นราชการ/ผู้สอบบัญชี | ล่าช้า เสี่ยงคีย์ตัวเลขผิดพลาด หรือเอกสารสูญหาย |
 
 ---
 
-## 5. Common Mistakes & Troubleshooting Table
+## 8. Common Pitfalls & Rationalization Counters
 
-| Common Mistake | Root Cause & Correct Treatment |
-|---|---|
-| *"Adjusted Bank Balance does not equal Adjusted Book Balance."* | **Transposition Error / Unreconciled Gap.** Check if difference is divisible by 9 (transposition of digits e.g. 54 vs 45) or divisible by 2 (item placed on wrong debit/credit side). Tick line-by-line. |
-| *"Recording Outstanding Checks in the General Journal."* | **Double Deduction.** Outstanding checks are already recorded in the cash ledger when issued. Deduct only from the bank statement side on the worksheet. |
-| *"Leaving unidentified bank deposits in bank account without investigating."* | **Distorted Liabilities / Unbilled VAT.** If money is received from a customer, tax points may be triggered under Sec. 78/78/1. Book to `เงินพักรอตรวจสอบ (Suspense Account)` and clear promptly. |
-| *"Netting marketplace payouts directly as sales revenue."* | **Understated Revenue & VAT Non-Compliance.** E-commerce platforms deduct commission and shipping fees. Gross sales must be recorded as revenue, and platform fees recorded as selling expenses. |
-| *"Waiting until year-end audit to reconcile bank accounts."* | **Severe Risk.** Bank reconciliation must be conducted monthly (or weekly for high-volume retail) to detect unauthorized withdrawals, duplicate charges, or bank errors within statutory reporting windows. |
+| ข้อผิดพลาดที่พบบ่อย (Pitfall) | ข้ออ้างที่ผิดพลาด (Rationalization) | ความเป็นจริงตามมาตรฐานบัญชี (Standard Rule) |
+|---|---|---|
+| **ลงบัญชีปรับปรุงเงินฝากระหว่างทาง (DIT) หรือเช็คค้างจ่าย** | *"เห็นในงบกระทบยอดมี DIT 55,000 บาท เลยเปิด JV เดบิตเงินฝากธนาคารเพิ่มเข้าไปในระบบ"* | **ผิดร้ายแรง** เพราะบริษัทได้ลงบัญชีไปแล้วตอนรับเงิน/จ่ายเช็ค การลง JV ซ้ำจะทำให้ยอดใน GL เบิ้ลเป็นสองเท่า (Double-counting) |
+| **ไม่ตั้งลูกหนี้กลับกรณีเช็คคืน (NSF)** | *"เช็คเด้ง รอให้ลูกค้านำเงินมาโอนให้ใหม่ ไม่ต้องแตะต้องบัญชีลูกหนี้"* | ผิด เพราะเงินในธนาคารลดลงจริงแล้ว แต่บริษัทไม่ทราบ หากไม่ลงบัญชี เงินฝากจะสูงเกินจริง และสิทธิ์เรียกร้องหนี้จะไม่ปรากฏในระบบบัญชี |
+| **ปรับยอดผลต่างเข้าบัญชีเบ็ดเตล็ดทันที** | *"ยอดต่างกันแค่ 200-300 บาท ปรับเข้าค่าใช้จ่ายเบ็ดเตล็ดไปเลยจะได้ปิดงบไว"* | ละเมิดระบบการควบคุมภายใน ยอดต่างเพียงเล็กน้อยอาจเกิดจากการหักกลบกันของยอดทุจริตหลักแสนกับยอดผิดพลาดอื่น ต้องสืบหาต้นตอให้ครบ |
