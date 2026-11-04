@@ -1,160 +1,215 @@
 ---
 name: accounting-stock-card
-description: Use when building or checking a stock card (บัตรคุมสินค้า, บัตรสต๊อกสินค้า, Stock Card) for inventory, recording goods received, sold, returned, or lost, computing running balances and inventory cost under FIFO or moving weighted-average methods, costing cost of goods sold (ต้นทุนขาย), handling physical count shortages or shrinkage (สินค้าขาด, ยอดไม่ตรงนับ), accounting for deemed sales and Output VAT under Revenue Code Section 77/1(8)(j), understanding differences between Stock Cards and VAT Goods and Materials Reports (รายงานสินค้าและวัตถุดิบ ตาม ม.87(3)), setting reorder points, or setting up inventory spreadsheets in Excel or Google Sheets.
+description: Use when building, auditing, or recording in a stock card (บัตรคุมสินค้า, บัตรสต๊อกสินค้า, Stock Card), tracking inventory receipts, issues, returns, or shortages, calculating running quantity and cost balances under FIFO or Moving Weighted Average (TFRS for NPAEs Chapter 8), setting up inventory formulas in Excel or Google Sheets, determining Reorder Points (จุดสั่งซื้อ), accounting for inventory shortages and deemed sales Output VAT under Revenue Code Section 77/1(8)(j) and Section 79/3, or distinguishing Stock Cards from statutory Goods and Materials Reports (รายงานสินค้าและวัตถุดิบ ตาม ม.87(3)).
 ---
 
-# Stock Card (บัตรคุมสินค้า)
+# คู่มือและมาตรฐานการจัดทำบัตรคุมสินค้า (Stock Card Guide & Inventory Costing)
 
-## Overview
-
-A stock card records every movement of one product, in date order: what came in, what went out, and the balance after each line. **One product, one card.**
-
-The card answers three fundamental questions:
-1. How much is on hand now?
-2. Which document caused each movement?
-3. What did those goods cost?
-
-Keep the card in a single unit of measure, and correct errors with a visible adjustment line—**never by editing or overwriting a past balance**.
+แนวทางปฏิบัติและหลักเกณฑ์ทางบัญชีและภาษีอากรสำหรับการจัดทำบัตรคุมสินค้า (Stock Card / บัตรสต๊อกสินค้า) การคำนวณยอดคงเหลือแบบต่อเนื่อง การคิดต้นทุนขายและสินค้าคงเหลือปลายงวดด้วยวิธีเข้าก่อนออกก่อน (FIFO) และวิธีถัวเฉลี่ยเคลื่อนที่ (Moving Weighted Average) ตามมาตรฐาน TFRS for NPAEs การสร้างฟอร์มใน Excel / Google Sheets และการจัดการภาระภาษีมูลค่าเพิ่มกรณีสินค้าขาดจากการตรวจนับตามมาตรา 77/1(8)(จ) แห่งประมวลรัษฎากร
 
 ---
 
-## 1. Document Comparison: Stock Card vs. Goods & Materials Report vs. Count Sheet
+## 1. ภาพรวมและบทบาทสำคัญของบัตรคุมสินค้า (Overview)
 
-| Comparison Dimension | บัตรคุมสินค้า (Stock Card) | รายงานสินค้าและวัตถุดิบ (ม.87(3)) | ใบตรวจนับสินค้า (Count Sheet) |
+**บัตรคุมสินค้า (Stock Card)** คือ บัตร ตาราง หรือระเบียนบันทึกการรับเข้า จ่ายออก และยอดคงเหลือของสินค้า**ทีละรายการ (1 สินค้าต่อ 1 บัตร)** เรียงตามลำดับวันที่ที่เกิดรายการจริง เพื่อให้ทราบปริมาณสินค้าคงเหลือที่แน่นอนและร่องรอยเอกสารอ้างอิงทุกครั้งที่ยอดสินค้าเปลี่ยนแปลง
+
+### 3 คำถามหลักที่บัตรคุมสินค้าต้องตอบได้ทันที:
+1. **ปัจจุบันมีสินค้าคงเหลืออยู่เท่าไร?** เพื่อวางแผนการสั่งซื้อได้ทันท่วงที ไม่ให้ของขาดสต๊อก และป้องกันเงินจม
+2. **ยอดที่เปลี่ยนแปลงเกิดจากเอกสารใด?** (Audit Trail) มีใบรับสินค้า ใบส่งของ ใบกำกับภาษี ใบเบิก หรือใบสำคัญปรับปรุงใดรองรับ
+3. **ต้นทุนของสินค้าที่ขายและสินค้าคงเหลือเป็นเท่าใด?** เมื่อมีการบันทึกราคาต้นทุนกำกับ จะทำให้ทราบต้นทุนขาย (COGS) และมูลค่าสินค้าคงเหลือปลายงวดสำหรับปิดงบการเงินได้อย่างถูกต้อง
+
+> [!IMPORTANT] กฎเหล็กของการควบคุมสินค้าคงคลัง (Golden Rule)
+> **"สินค้าจะออกจากคลังหรือชั้นวางไม่ได้เด็ดขาดหากไม่มีเอกสารอนุมัติรองรับ"** และ **"ห้ามแก้ไขตัวเลขยอดยกมาหรือยอดในอดีตย้อนหลัง"** หากพบข้อผิดพลาดหรือยอดนับไม่ตรง ต้องบันทึกปรับปรุงยอดด้วยเอกสารใบปรับปรุงสินค้า (Adjustment Voucher: `ADJ-...`) ในงวดปัจจุบันเสมอ เพื่อรักษาเส้นทางการตรวจสอบ (Audit Trail) ให้ถูกต้องตามพระราชบัญญัติการบัญชี พ.ศ. 2543 มาตรา 20
+
+---
+
+## 2. การเปรียบเทียบ 3 เอกสารสำคัญเกี่ยวกับสินค้าคงเหลือ
+
+| มิติการเปรียบเทียบ | บัตรคุมสินค้า (Stock Card) | รายงานสินค้าและวัตถุดิบ (ม.87(3)) | ใบตรวจนับสินค้า (Physical Count Sheet) |
 |---|---|---|---|
-| **Authority / Requirement** | **Internal business policy** (Warehouse / Accounting). | **Mandatory by VAT Law** (Revenue Code Sec. 87(3) & DG Notification No. 89). | **Internal business policy** (Stock Count Committee). |
-| **Purpose** | Track unit movements, running balance, and itemized inventory costing for internal control and COGS calculation. | Official tax record provided to Revenue Department officers to audit quantities received, issued, and on hand per business place/branch. | Record actual physical count on a specific date to reconcile against stock cards. |
-| **Legal / Tax Consequences** | No statutory template, but must be retained for at least 5 years under the Accounting Act B.E. 2543. | Must record entries within **3 working days**. Unexplained shortages are **deemed a sale under Sec. 77/1(8)(j)** subject to 7% Output VAT. | Serves as evidentiary support for adjustment vouchers (`ADJ-...`). Without signed count sheets, shortages cannot be defended in a tax audit. |
+| **ผู้กำหนด / กฎหมาย** | **นโยบายภายในของกิจการ** (ฝ่ายคลังสินค้า / ฝ่ายบัญชี) | **กฎหมายภาษีมูลค่าเพิ่มภาคบังคับ** (ม.87(3) และประกาศฯ ฉบับที่ 89) | **ระบบการควบคุมภายในของกิจการ** (คณะกรรมการตรวจนับสต๊อก) |
+| **วัตถุประสงค์หลัก** | ติดตามการเคลื่อนไหวรายวัน ตรวจสอบจุดสั่งซื้อ และคำนวณต้นทุนสินค้า | จัดเตรียมเป็นหลักฐานทางการให้เจ้าหน้าที่สรรพากรตรวจสอบปริมาณสินค้า | บันทึกจำนวนสินค้าที่นับได้จริง ณ วันตรวจนับ เพื่อกระทบยอดกับบัตรคุมสินค้า |
+| **ข้อมูลที่แสดง** | แสดงปริมาณ (รับ-จ่าย-คงเหลือ) และสามารถเพิ่มราคาต่อหน่วยและมูลค่าต้นทุน | **แสดงเฉพาะปริมาณเท่านั้น** (รับ-จ่าย-คงเหลือ) ไม่ต้องแสดงจำนวนเงินบาท | แสดงรหัสสินค้า รายละเอียด จำนวนนับได้จริง หน่วยนับ และผลต่างขาด/เกิน |
+| **ผลทางกฎหมายและภาษี** | ต้องเก็บรักษาเอกสารไม่น้อยกว่า 5 ปี ตาม พ.ร.บ.การบัญชี พ.ศ. 2543 | ต้องลงรายการภายใน **3 วันทำการ** หากตรวจพบสินค้าขาด ถือเป็น**การขายตาม ม.77/1(8)(จ)** เสียภาษีขาย 7% จากราคาตลาด | ใช้เป็นหลักฐานแนบใบปรับปรุงยอด (`ADJ`) หากไม่มีใบตรวจนับ จะไม่สามารถพิสูจน์สาเหตุของผลต่างต่อผู้สอบบัญชีและสรรพากรได้ |
 
 ---
 
-## 2. Card Layout and Essential Columns
+## 3. โครงสร้างและส่วนประกอบมาตรฐานของ Stock Card
 
-**Header Information:**
-- Product Name & Product Code (e.g., `PEN-BL-05`)
-- Single Unit of Measure (e.g., Box of 50 pens)
-- Storage Location (e.g., Shelf A2)
-- Reorder Point (จุดสั่งซื้อ - e.g., 40 boxes)
-- Costing Method (FIFO or Moving Weighted Average)
+### 3.1 ข้อมูลส่วนหัว (Header Details)
+- **ชื่อสินค้า และ รหัสสินค้า (Product Code):** เช่น ปากกาลูกลื่นสีน้ำเงิน 0.5 มม. รหัส `PEN-BL-05`
+- **หน่วยนับมาตรฐานเดียว (Single Unit of Measure):** กำหนดหน่วยนับให้ชัดเจน เช่น "กล่อง (50 ด้าม)" ห้ามใช้หน่วยปนกันเด็ดขาด (เช่น ซื้อเป็นลังแต่ขายเป็นกล่อง ต้องแปลงให้เป็นหน่วยกล่องตั้งแต่ส่วนหัว)
+- **สถานที่จัดเก็บ (Location):** เช่น คลังสินค้าหลัก, ชั้นวาง A2
+- **จุดสั่งซื้อ (Reorder Point - ROP):** ยอดสินค้าคงเหลือขั้นต่ำที่ต้องเริ่มออกใบสั่งซื้อใหม่ เช่น 40 กล่อง
+- **วิธีคิดราคาทุน (Costing Method):** ระบุวิธีตามมาตรฐานบัญชี เช่น FIFO หรือ Moving Weighted Average
 
-**Body Columns:**
+### 3.2 ข้อมูลส่วนรายการ (Body Columns)
+1. **วันที่ (Date):** วันที่ที่เกิดรายการตามลำดับเวลา
+2. **เลขที่เอกสาร (Document No.):** อ้างอิงเอกสารที่เกิดขึ้นจริง เช่น ใบสั่งซื้อ (`PO`), ใบส่งของ/ใบกำกับภาษีซื้อ (`PI`), ใบกำกับภาษีขาย (`IV`), ใบลดหนี้/รับคืน (`CN`), ใบเบิกภายใน (`REQ`), ใบปรับปรุงสต๊อก (`ADJ`)
+3. **คำอธิบายรายการ (Description):** ระบุชื่อคู่ค้า, เลขล็อต, หรือเหตุผลของการปรับปรุง
+4. **จำนวนรับ (Quantity In):** สินค้าที่รับเข้าคลัง (จากการซื้อ, การรับคืนจากลูกค้า, หรือการโอนย้าย)
+5. **จำนวนจ่าย (Quantity Out):** สินค้าที่จ่ายออกจากคลัง (จากการขาย, การเบิกใช้ภายใน, ตัวอย่างสินค้า, หรือของชำรุดตัดทิ้ง)
+6. **จำนวนคงเหลือ (Quantity Balance):** คำนวณต่อเนื่อง: $\text{ยอดคงเหลือเดิม} + \text{รับ} - \text{จ่าย}$
+7. **คอลัมน์ด้านต้นทุน (สำหรับบัตรแบบแสดงต้นทุน):**
+   - ต้นทุนต่อหน่วย (Unit Cost)
+   - มูลค่ารับ (Value In)
+   - มูลค่าจ่าย (Value Out - ต้นทุนขาย/ต้นทุนที่ตัดจ่าย)
+   - มูลค่าคงเหลือ (Ending Inventory Value)
 
-| Column | Content | Notes |
+---
+
+## 4. วิธีการคำนวณต้นทุนสินค้าตามมาตรฐาน TFRS for NPAEs (บทที่ 8)
+
+มาตรฐานการรายงานทางการเงินสำหรับกิจการที่ไม่มีส่วนได้เสียสาธารณะ (TFRS for NPAEs) กำหนดวิธีตีราคาสินค้าคงเหลือ 3 วิธี (ห้ามใช้วิธี LIFO เด็ดขาด):
+
+### 4.1 วิธีเข้าก่อน-ออกก่อน (First-In, First-Out: FIFO)
+- ถือว่าสินค้าที่ซื้อเข้ามาก่อนจะถูกขายหรือจ่ายออกไปก่อนตามลำดับ
+- **ต้นทุนขาย (COGS):** จะสะท้อนราคาของสินค้าล็อตแรกๆ ในอดีต
+- **สินค้าคงเหลือปลายงวด:** จะสะท้อนราคาของสินค้าล็อตล่าสุดที่เพิ่งซื้อเข้ามา
+- **ในสภาวะราคาสินค้าปรับตัวสูงขึ้น (Inflation):** วิธี FIFO จะทำให้ต้นทุนขายต่ำ กำไรสุทธิในงบการเงินสูง และมูลค่าสินค้าคงเหลือในงบแสดงฐานะการเงินสูง
+
+### 4.2 วิธีถัวเฉลี่ยเคลื่อนที่ (Moving Weighted Average)
+- คำนวณต้นทุนถัวเฉลี่ยต่อหน่วยใหม่**ทุกครั้งที่มีการซื้อสินค้าเข้ามาใหม่**:
+  $$\text{ต้นทุนเฉลี่ยต่อหน่วยใหม่} = \frac{\text{มูลค่าคงเหลือก่อนหน้า} + \text{มูลค่าที่ซื้อเข้ามารอบล่าสุด}}{\text{จำนวนคงเหลือก่อนหน้า} + \text{จำนวนที่ซื้อเข้ามารอบล่าสุด}}$$
+- เมื่อมีการขายหรือจ่ายสินค้าออก จะใช้ต้นทุนถัวเฉลี่ยล่าสุดนั้นตัดจ่าย จนกว่าจะมีการรับสินค้าล็อตใหม่เข้ามา
+- ช่วยลดความผันผวนของต้นทุนในสภาวะที่ราคาสินค้ามีความผันผวนขึ้นลงอย่างรวดเร็ว
+
+### 4.3 กฎความสม่ำเสมอ (Consistency Principle)
+เมื่อกิจการเลือกใช้วิธีใดในการคิดต้นทุนสินค้าแล้ว **ต้องใช้วิธีนั้นอย่างต่อเนื่องสม่ำเสมอทุกรอบระยะเวลาบัญชี** หากมีความจำเป็นต้องเปลี่ยนวิธี จะต้องเปิดเผยเหตุผลและผลกระทบต่องบการเงินตามมาตรฐานการบัญชี
+
+---
+
+## 5. กรณีศึกษาตัวอย่างจริง: ร้านค้าส่งเครื่องเขียนคุณต้า (Khun Ta's Stationery)
+
+**สินค้า:** ปากกาลูกลื่นสีน้ำเงิน 0.5 มม. (รหัส `PEN-BL-05`) | หน่วยนับ: กล่อง (50 ด้าม) | จุดสั่งซื้อ (ROP): 40 กล่อง
+
+### 5.1 บันทึกรายการเคลื่อนไหวปริมาณตลอดเดือนตุลาคม 2569
+
+| วันที่ | เลขที่เอกสาร | รายการค้า | รับ (กล่อง) | จ่าย (กล่อง) | คงเหลือ (กล่อง) | หมายเหตุ / จุดควบคุม |
+|:---:|:---:|---|:---:|:---:|:---:|---|
+| 01/10/69 | - | ยอดยกมาต้นงวด (Opening Balance) | - | - | 40 | ทุน 200 บ./กล่อง (มูลค่า 8,000 บ.) |
+| 04/10/69 | PI-6910-003 | ซื้อจากผู้ผลิต ล็อต 1 | 60 | - | 100 | ทุน 200 บ./กล่อง (มูลค่า 12,000 บ.) |
+| 10/10/69 | IV-6910-021 | ขายโรงเรียนประจำอำเภอ | - | 70 | **30** | ⚠️ ยอดคงเหลือ 30 < ROP 40 จึงสั่งซื้อทันที |
+| 15/10/69 | PI-6910-009 | ซื้อจากผู้ผลิต ล็อต 2 | 120 | - | 150 | ทุนใหม่ปรับขึ้นเป็น 225 บ./กล่อง (27,000 บ.) |
+| 22/10/69 | IV-6910-058 | ขายร้านถ่ายเอกสาร | - | 80 | 70 | ตัดสต๊อกตามลำดับวิธีต้นทุน |
+| 27/10/69 | CN-6910-004 | รับคืนสินค้าจากร้านถ่ายเอกสาร | 2 | - | 72 | รับคืนจากบิล IV-6910-058 คืนเข้าสต๊อก |
+| 31/10/69 | ADJ-6910-001 | ปรับปรุงผลตรวจนับจริงพบสินค้าขาด 1 กล่อง | - | 1 | **71** | ตรวจนับจริงได้ 71 กล่อง (ขาด 1 กล่อง) |
+
+---
+
+### 5.2 ตารางเปรียบเทียบการจัดสรรต้นทุน: FIFO vs ถัวเฉลี่ยเคลื่อนที่ (Total Cost Pool = 47,000 บาท)
+
+ต้นทุนรวมของสินค้าที่มีไว้เพื่อขายตลอดเดือน $= 8,000 (\text{ยกมา}) + 12,000 (\text{ล็อต 1}) + 27,000 (\text{ล็อต 2}) = \mathbf{47,000}$ บาท
+
+| ลำดับรายการ | วิธีเข้าก่อน-ออกก่อน (FIFO) | วิธีถัวเฉลี่ยเคลื่อนที่ (Moving Weighted Average) |
 |---|---|---|
-| **Date** | Date the movement occurred | Chronological order |
-| **Document No.** | Reference voucher (PO, Invoice, Delivery Note, CN, ADJ) | Mandatory for audit trail |
-| **Description** | Supplier lot, customer name, return, or count adjustment | Plain and specific |
-| **Qty In (รับ)** | Units received | Purchases, customer returns |
-| **Qty Out (จ่าย)** | Units issued | Sales, internal withdrawals, scrap |
-| **Balance Qty (คงเหลือ)** | Cumulative balance | Previous Balance + In − Out |
-| **Unit Cost (ต้นทุน/หน่วย)** | Cost per unit for this line | Required for costing stock cards |
-| **Value In / Out / Balance** | Monetary amounts | Total inventory value tracking |
+| **1. ขาย 10 ต.ค. (70 กล่อง)** | • ตัดจากยอดยกมา: $40 \times 200 = 8,000$<br>• ตัดจากล็อต 1: $30 \times 200 = 6,000$<br>**รวมต้นทุนขาย = 14,000 บาท** | $70 \times 200 = \mathbf{14,000}$ บาท |
+| **2. คงเหลือหลังขาย 10 ต.ค. (30 กล่อง)** | 30 กล่อง (ล็อต 1) $\times 200 = \mathbf{6,000}$ บาท | 30 กล่อง $\times 200 = \mathbf{6,000}$ บาท |
+| **3. ซื้อล็อต 2 เมื่อ 15 ต.ค. (120 กล่อง @ 225)** | 30 กล่อง @ 200 (6,000) + 120 กล่อง @ 225 (27,000)<br>**มูลค่ารวม 150 กล่อง = 33,000 บาท** | คงเหลือ 150 กล่อง, มูลค่ารวม $= 6,000 + 27,000 = 33,000$<br>$\rightarrow$ **ทุนเฉลี่ยใหม่ $= \frac{33,000}{150} = \mathbf{220}$ บาท/กล่อง** |
+| **4. ขาย 22 ต.ค. (80 กล่อง)** | • ตัดล็อต 1 ที่เหลือ: $30 \times 200 = 6,000$<br>• ตัดล็อต 2: $50 \times 225 = 11,250$<br>**รวมต้นทุนขาย = 17,250 บาท** | $80 \times 220 = \mathbf{17,600}$ บาท |
+| **5. รับคืน 27 ต.ค. (2 กล่อง)** | คืนเข้าล็อต 2: ลดต้นทุนขาย $2 \times 225 = \mathbf{(450)}$ บาท | ลดต้นทุนขาย $2 \times 220 = \mathbf{(440)}$ บาท |
+| **6. ปรับลดสินค้าขาด 31 ต.ค. (1 กล่อง)** | ตัดจากล็อต 2: $1 \times 225 = \mathbf{225}$ บาท | $1 \times 220 = \mathbf{220}$ บาท |
+| **ต้นทุนขายสุทธิทั้งเดือน (Net COGS)** | $14,000 + 17,250 - 450 = \mathbf{30,800}$ บาท | $14,000 + 17,600 - 440 = \mathbf{31,160}$ บาท |
+| **ผลขาดทุนจากสินค้าขาดตรวจนับ** | **225** บาท | **220** บาท |
+| **มูลค่าสินค้าคงเหลือปลายงวด (71 กล่อง)** | $71 \times 225 = \mathbf{15,975}$ บาท | $71 \times 220 = \mathbf{15,620}$ บาท |
+| **การกระทบยอดสอบยัน (Reconciliation)** | $30,800 + 225 + 15,975 = \mathbf{47,000}$ บาท | $31,160 + 220 + 15,620 = \mathbf{47,000}$ บาท |
 
-*For perishable or medical goods, add **Lot Number** and **Expiry Date** columns, enforcing First-Expired, First-Out (FEFO).*
-
----
-
-## 3. Operational Rules
-
-1. **Strict Unit of Measure:** Use one consistent unit across the entire card. If purchased in cartons but sold in boxes, convert at the header level before entry. Mixing units is the #1 cause of stock balance errors.
-2. **No Movement Without Documents:** Every line must cite an authorized document. Goods cannot leave the warehouse without an approved invoice or internal withdrawal slip.
-3. **Timing:** Log movements daily, or at least within 3 working days for VAT-registered businesses.
-4. **Permanent Audit Trail:** Never overwrite past balances or delete rows. Correct errors by posting a new adjustment line citing an adjustment memo (`ADJ-...`).
-5. **Reorder Point Monitoring:** Trigger purchase orders when the running balance falls below the reorder threshold.
+> [!TIP] ข้อสังเกตเชิงเปรียบเทียบในสภาวะของแพงขึ้น
+> ในกรณีนี้ราคาซื้อล็อต 2 ปรับตัวสูงขึ้นจาก 200 เป็น 225 บาท วิธี FIFO จะให้ต้นทุนขายต่ำกว่าวิธีถัวเฉลี่ยเคลื่อนที่อยู่ 360 บาท ($31,160 - 30,800$) ส่งผลให้วิธี FIFO รายงานกำไรสุทธิสูงกว่า และแสดงมูลค่าสินค้าคงเหลือปลายงวดในงบดุลสูงกว่า
 
 ---
 
-## 4. Costing Methods (TFRS for NPAEs Chapter 8)
+## 6. แนวทางการจัดทำ Stock Card ใน Excel / Google Sheets
 
-Businesses choose from three accepted costing methods under Thai accounting standards:
-- **FIFO (First-In, First-Out):** Goods sold take the unit cost from the oldest available batches.
-- **Moving Weighted Average (ถัวเฉลี่ยเคลื่อนที่):** Recompute the weighted average unit cost after every receipt:
-  $$\text{New Average Unit Cost} = \frac{\text{Previous Balance Value} + \text{Received Value}}{\text{Previous Balance Qty} + \text{Received Qty}}$$
-  Issues and sales use this current average until the next receipt.
-- **Specific Identification (วิธีราคาเจาะจง):** Used for unique, high-value, non-interchangeable goods.
+### 6.1 สูตรและโครงสร้างชีตสำหรับ 1 สินค้าต่อ 1 ชีต
+- แถวที่ 1: ส่วนหัว (ชื่อสินค้า, รหัสสินค้า, หน่วยนับ, ROP)
+- แถวที่ 2: บรรทัดยอดยกมา โดยใส่ตัวเลขยอดยกมาในช่องคงเหลือ (เซลล์ `F2`)
+- แถวที่ 3 เป็นต้นไป: บันทึกรายการเคลื่อนไหวรายวัน
+  - คอลัมน์ `A`: วันที่
+  - คอลัมน์ `B`: เลขที่เอกสารอ้างอิง
+  - คอลัมน์ `C`: รายการค้า
+  - คอลัมน์ `D`: ปริมาณรับ
+  - คอลัมน์ `E`: ปริมาณจ่าย
+  - คอลัมน์ `F` (คงเหลือ): ใส่สูตร `=F2+D3-E3` แล้วคัดลอกลงไปทุกแถว
 
-*Consistency Rule:* Once chosen, the method must be applied consistently across periods. Switching methods requires justified accounting changes and financial statement disclosure.
+### 6.2 การตั้งค่า Conditional Formatting เตือนจุดสั่งซื้อ
+1. เลือกช่วงเซลล์ในคอลัมน์ `F` (ยอดคงเหลือ)
+2. ไปที่ **Conditional Formatting (การจัดรูปแบบตามเงื่อนไข)** $\rightarrow$ Highlight Cells Rules $\rightarrow$ **Less Than**
+3. ระบุค่าเซลล์จุดสั่งซื้อ (เช่น เซลล์ที่ระบุ ROP = 40)
+4. เลือกรูปแบบให้แสดงเป็น **แถบสีแดงหรือส้ม** เพื่อให้ระบบเตือนฝ่ายจัดซื้อทันทีที่สินค้าลดลงถึงเกณฑ์
+
+### 6.3 สูตรคุมสต๊อกรวมหลายสินค้าในชีตเดียว (Single-Table SUMIF)
+หากต้องการรวมรายการรับ-จ่ายของสินค้าทุกรหัสไว้ในตารางฐานข้อมูลเดียว ให้สร้างตารางสรุปโดยใช้สูตร `SUMIF`:
+$$\text{ยอดคงเหลือของสินค้ารหัส X} = \text{ยอดยกมารหัส X} + \text{SUMIF}(\text{คอลัมน์รหัส}, \text{"X"}, \text{คอลัมน์รับ}) - \text{SUMIF}(\text{คอลัมน์รหัส}, \text{"X"}, \text{คอลัมน์จ่าย})$$
+
+### 6.4 สัญญาณเตือนเมื่อถึงเวลาต้องเปลี่ยนจาก Excel เป็นโปรแกรมบัญชี
+1. มีรายการสินค้าเกิน **50 - 100 รายการ** จนการเปิดหลายชีตทำให้ไฟล์ช้าและสับสน
+2. มีผู้ใช้งานหลายคนร่วมบันทึกข้อมูลพร้อมกัน เกิดปัญหาแถวหาย ข้อมูลถูกแก้ทับ หรือสูตรเพี้ยน
+3. มีการซื้อสินค้าหลายล็อตในราคาที่ต่างกัน และต้องการคำนวณต้นทุนแบบ FIFO หรือถัวเฉลี่ยเคลื่อนที่อัตโนมัติ
+4. กิจการขยายสาขาหรือมีคลังสินค้ามากกว่า 1 แห่ง ที่ต้องตัดสต๊อกและแยกรายงานรายสถานประกอบการ
 
 ---
 
-## 5. Worked Example: Khun Ta's Stationery Wholesale
+## 7. กรณีสินค้าขาดจากการตรวจนับ และผลทางภาษีอากรตามกฎหมายไทย
 
-**Product:** Blue ballpoint pen 0.5 mm (Box of 50), PEN-BL-05.
-- 1 Oct: Opening balance: 40 boxes @ 200 baht = 8,000 baht.
-- 4 Oct (PI-003): Purchased Lot 1: 60 boxes @ 200 baht = 12,000 baht. (Balance: 100 boxes)
-- 10 Oct (IV-021): Sold 70 boxes to school. (Balance: 30 boxes $\rightarrow$ below reorder point of 40!)
-- 15 Oct (PI-009): Purchased Lot 2: 120 boxes @ 225 baht = 27,000 baht. (Balance: 150 boxes)
-- 22 Oct (IV-058): Sold 80 boxes to copy shop. (Balance: 70 boxes)
-- 27 Oct (CN-004): Customer return from copy shop: 2 boxes. (Balance: 72 boxes)
-- 31 Oct (ADJ-001): Physical stock count found only 71 boxes $\rightarrow$ **Shortage of 1 box**.
+เมื่อทำการตรวจนับสินค้าจริงแล้วพบว่า **"ยอดที่นับได้จริง น้อยกว่า ยอดในบัญชี/Stock Card"**:
 
-### Cost Allocation Comparison (Total Cost Pool = 47,000 Baht)
+### 7.1 ข้อห้ามตามกฎหมายบัญชี
+- **ห้ามแก้ไขตัวเลขการรับเข้าย้อนหลังเด็ดขาด:** การย้อนกลับไปแก้จำนวนซื้อในอดีต (เช่น เปลี่ยนบิลซื้อจาก 20 กล่องเป็น 15 กล่อง) ถือเป็น**การลงรายการเท็จในเอกสารหรือบัญชี** มีโทษจำคุกไม่เกิน 1-2 ปี หรือปรับไม่เกิน 20,000 - 40,000 บาท ตามมาตรา 20, 39, 40 แห่ง พ.ร.บ.การบัญชี พ.ศ. 2543
+- **วิธีปฏิบัติที่ถูกต้อง:** ให้ออกใบสำคัญปรับปรุงสต๊อก (Adjustment Memo: `ADJ-...`) แนบใบตรวจนับสินค้าที่ลงนามโดยกรรมการตรวจนับ และบันทึกแถวปรับลดของขาดใน Stock Card ณ วันที่ตรวจนับ
 
-| Item | FIFO | Moving Weighted Average |
+### 7.2 ภาระภาษีมูลค่าเพิ่ม: "ถือเป็นการขาย" (มาตรา 77/1(8)(จ))
+- ตามประมวลรัษฎากร **มาตรา 77/1(8)(จ)**: สินค้าที่ขาดจากรายงานสินค้าและวัตถุดิบ กฎหมาย**ถือว่าเป็นการขาย**
+- **ฐานภาษี (Tax Base):** ตาม **มาตรา 79/3(1)** กิจการต้องคำนวณภาษีขาย 7% จาก **"ราคาตลาด (Market Price)"** ของสินค้า ณ วันที่ตรวจพบสินค้าขาด **ห้ามคำนวณจากราคาทุนเด็ดขาด!**
+- **การออกเอกสาร:** **ไม่ต้องออกใบกำกับภาษีขาย** ให้แก่ใคร ให้นำยอดภาษีขายไปลงบันทึกใน **"รายงานภาษีขาย" (Output Tax Report)** ประจำเดือน โดยระบุหมายเหตุว่า "สินค้าขาดจากรายงานตาม ม.77/1(8)(จ)" และนำส่งด้วยแบบ ภ.พ.30
+
+### 7.3 การบันทึกบัญชีระบบ Perpetual Inventory System (ตัวอย่าง: สินค้าขาด 5 เครื่อง ทุนเครื่องละ 2,000 บ. ราคาตลาด 3,500 บ.)
+- ต้นทุนสินค้าที่ขาด $= 5 \times 2,000 = 10,000$ บาท
+- ฐานภาษีขายราคาตลาด $= 5 \times 3,500 = 17,500$ บาท $\rightarrow$ ภาษีขาย 7% $= 17,500 \times 7\% = \mathbf{1,225}$ บาท
+
+**1. บันทึกตัดสต๊อกสินค้าขาดและรับรู้ภาษีขายพึงชำระ:**
+```text
+เดบิต  ผลขาดทุนจากสินค้าขาดตรวจนับ (Loss on Inventory Shortage - ค่าใช้จ่ายบริหาร)   10,000.00
+เดบิต  ภาษีขายจากสินค้าขาด - รายจ่ายต้องห้าม (Non-Deductible Output VAT Expense)       1,225.00
+    เครดิต  สินค้าคงเหลือ (Inventory)                                                      10,000.00
+    เครดิต  ภาษีขาย / ภาษีขายพึงชำระ (Output VAT Payable - นำส่ง ภ.พ.30)                     1,225.00
+(บันทึกตัดจ่ายสินค้าขาดจากการตรวจนับประจำปี และรับรู้ภาษีขายตาม ม.77/1(8)(จ) จากราคาตลาด)
+```
+
+**2. เมื่อยื่นแบบ ภ.พ.30 และชำระภาษีในเดือนถัดไป (ภายในวันที่ 15 หรือ 23):**
+```text
+เดบิต  ภาษีขาย / ภาษีขายพึงชำระ (Output VAT Payable)                               1,225.00
+    เครดิต  เงินฝากธนาคาร / เงินสด                                                          1,225.00
+(ชำระภาษีมูลค่าเพิ่มสำหรับสินค้าขาดตรวจนับตามแบบ ภ.พ.30)
+```
+
+### 7.4 การปรับปรุงภาษีเงินได้นิติบุคคลตอนสิ้นปี (ภ.ง.ด.50)
+1. **ภาษีขายจากสินค้าขาด (1,225 บาท):** เป็นภาษีมูลค่าเพิ่มที่ชำระแทน จึงเป็น **รายจ่ายต้องห้ามตามมาตรา 65 ตรี (6)** ต้องบวกกลับในการคำนวณภาษี CIT ทั้งจำนวน
+2. **มูลค่าต้นทุนสินค้าที่ขาด (10,000 บาท):**
+   - *หากมีหลักฐานชัดเจนว่าเกิดจากการโจรกรรม:* และได้แจ้งความดำเนินคดีต่อเจ้าหน้าที่ตำรวจ มีสำเนารายงานประจำวันเกี่ยวกับคดี สามารถนำมาหักเป็นค่าใช้จ่ายทางภาษีได้
+   - *หากเป็นสินค้าขาดที่ไม่สามารถพิสูจน์สาเหตุได้:* จะถือเป็นผลเสียหายที่ไม่สามารถพิสูจน์ได้ตาม **มาตรา 65 ตรี (12) และ (3)** ต้องนำมูลค่าต้นทุน 10,000 บาท **บวกกลับเป็นรายได้ในการคำนวณภาษีเงินได้นิติบุคคล (ภ.ง.ด.50)**
+
+---
+
+## 8. สาเหตุหลักที่ยอดในบัตรคุมสินค้าไม่ตรงกับของจริง และแนวทางป้องกัน
+
+| สาเหตุที่พบบ่อย | อาการที่ตรวจพบ | แนวทางแก้ไขและควบคุมภายใน |
 |---|---|---|
-| **Balance after 10 Oct sale (30 boxes)** | $30 \times 200 = 6,000$ | $30 \times 200 = 6,000$ |
-| **Balance after Lot 2 purchase (150 boxes)** | $30 \times 200 + 120 \times 225 = 33,000$ | 150 boxes, 33,000 baht ($\text{Avg} = 220/\text{box}$) |
-| **Cost of Sale 22 Oct (80 boxes)** | $30 \times 200 + 50 \times 225 = 17,250$ | $80 \times 220 = 17,600$ |
-| **Return 27 Oct (2 boxes)** | Reverse $2 \times 225 = (450)$ | Reverse $2 \times 220 = (440)$ |
-| **Net Cost of Goods Sold (COGS)** | **30,800** ($14,000 + 17,250 - 450$) | **31,160** ($14,000 + 17,600 - 440$) |
-| **Shortage 31 Oct (1 box write-off)** | $1 \times 225 = \mathbf{225}$ | $1 \times 220 = \mathbf{220}$ |
-| **Ending Inventory Value (71 boxes)** | $71 \times 225 = \mathbf{15,975}$ | $71 \times 220 = \mathbf{15,620}$ |
-| **Reconciliation Check** | $30,800 + 225 + 15,975 = \mathbf{47,000}$ | $31,160 + 220 + 15,620 = \mathbf{47,000}$ |
-
-*Key Takeaway:* In an inflationary environment (purchase price rising from 200 to 225), **FIFO yields lower COGS, higher reported net income, and higher ending inventory on the balance sheet** compared to Weighted Average.
+| **ของชำรุด เสียหาย หรือหมดอายุถูกทิ้งโดยไม่ได้ลงจ่าย** | ยอดในบัตรมากกว่าของจริง | กำหนดระเบียบการตัดทำลายสินค้า โดยต้องมีใบขอตัดจำหน่ายของเสีย (Scrap Request) ได้รับอนุมัติก่อนทิ้ง |
+| **เบิกใช้ภายในหรือแจกสินค้าตัวอย่างโดยไม่มีใบเบิก** | ยอดในบัตรมากกว่าของจริง | บังคับใช้ **ใบเบิกสินค้าใช้ภายใน (Internal Requisition Slip)** ทุกกรณี แม้กรรมการบริษัทหยิบใช้เอง |
+| **รับของเข้าคลังแล้วแต่รอใบกำกับภาษีก่อนลงบัตร** | ของจริงมากกว่ายอดในบัตรชั่วคราว | ให้บันทึกรับเข้า Stock Card ทันทีจาก **ใบส่งของชั่วคราว (Delivery Note / GRN)** ในวันที่ของถึงคลัง |
+| **สับสนหน่วยนับ (เช่น ลัง กับ กล่อง หรือ ชิ้น)** | ยอดคงเหลือเพี้ยนเป็นเท่าทวีคูณ | กำหนดหน่วยนับหลักหน่วยเดียวในส่วนหัวของ Stock Card และติดป้ายหน่วยนับที่หน้าชั้นวาง |
+| **ลงรายการล่าช้าหรือรวมลงยอดสิ้นสัปดาห์** | ยอดไม่ตรงระหว่างงวด จัดซื้อสั่งของซ้ำ | บันทึกรับ-จ่ายทุกวัน หรือไม่เกิน 3 วันทำการตามกรอบของกฎหมายภาษี |
 
 ---
 
-## 6. Physical Count Shortage & Thai Tax Law (ม.77/1(8)(จ))
+## 9. ตารางสรุปข้อผิดพลาดและข้อแก้ตัวที่พบบ่อย (Mistakes & Rationalizations)
 
-When actual stock is less than the book balance:
-
-### 6.1 Stock Card Adjustment Entry
-Add an adjustment line on the count date:
-- Date: 31 Oct
-- Doc No: `ADJ-6910-001`
-- Description: "ปรับปรุงสินค้าขาดจากการตรวจนับ 1 กล่อง"
-- Qty Out: 1 box
-- Running Balance: 71 boxes
-
-### 6.2 VAT Implications: Deemed Sale (ถือเป็นการขาย)
-Under **Revenue Code Section 77/1(8)(j)**:
-- Inventory shortages from the Goods and Materials Report that cannot be proven as resulting from force majeure (เหตุสุดวิสัย) are legally **deemed a sale**.
-- The business must pay **7% Output VAT based on the Market Price (ราคาตลาด)** of the missing goods.
-- **Invoicing & Reporting:** Do **not** issue a tax invoice to any customer. Record the output VAT directly in the **Output VAT Report (รายงานภาษีขาย)** under the description "สินค้าขาดจากรายงานตาม ม.77/1(8)(จ)" and remit via Form ภ.พ.30.
-- **Corporate Income Tax (CIT):** The Output VAT paid cannot be collected from anyone; it is an expense of the business, but is a **non-deductible tax expense under Section 65 Ter (6)** (ต้องบวกกลับใน ภ.ง.ด.50).
-
-### 6.3 Standard Journal Entries (Perpetual System)
-
-**A. Write-off Inventory Shortage (FIFO basis = 225 baht):**
-- Dr. Loss on Inventory Shortage (ขาดทุนจากสินค้าขาดตรวจนับ - ค่าใช้จ่ายอื่น) 225
-- Cr. Finished Goods / Inventory (สินค้าคงเหลือ) 225
-
-**B. Output VAT on Deemed Sale (e.g., selling price = 300 baht $\rightarrow$ VAT 7% = 21 baht):**
-- Dr. Output VAT Expense on Inventory Shortage (ภาษีขายจากสินค้าขาด - รายจ่ายต้องห้าม ม.65 ตรี (6)) 21
-- Cr. Output VAT (ภาษีขาย - นำส่ง ภ.พ.30) 21
-
----
-
-## 7. Common Root Causes of Inventory Mismatches
-
-| Cause | Symptom | Corrective Action |
-|---|---|---|
-| Damaged or expired goods discarded without record | Book > Physical | Issue official scrap write-off voucher before disposing. |
-| Internal staff usage or promotional samples | Book > Physical | Require an internal withdrawal slip (ใบเบิกใช้ภายใน) for every non-sale issue. |
-| Receiving goods but waiting for tax invoice | Physical > Book | Log receipt immediately from the Delivery Note (ใบส่งของ); do not wait for the tax invoice. |
-| Mixed units of measure (cartons vs. pieces) | Major factor errors | Mandate a single unit of measure in the card header. |
-| Delayed or batch batch-posting | Discrepancies mid-month | Enforce daily posting or within the 3-day statutory window. |
-
----
-
-## 8. Common Mistakes & Rationalization Table
-
-| Common Rationalization / Mistake | Reality & Correct Treatment |
+| ข้อแก้ตัว / ความเข้าใจผิดที่พบบ่อย | ความเป็นจริงและหลักปฏิบัติที่ถูกต้อง |
 |---|---|
-| *"We found an error from two weeks ago, so let's just edit that row in Excel."* | **Wrong.** Overwriting past entries destroys the audit trail. Post a distinct adjustment row with an `ADJ` document reference. |
-| *"Stock shortage is small, so we can just lump it into Cost of Goods Sold."* | **Wrong.** Inventory shortages are a separate operating loss (ค่าใช้จ่ายอื่น), not COGS. Furthermore, unexplained shortages require Output VAT remittance under Sec. 77/1(8)(j). |
-| *"We don't need a stock card because we only sell services."* | **Correct for pure services**, but any business selling goods, consumables, or maintaining spare parts must track inventory. |
-| *"Stock cards and VAT Goods & Materials Reports are the same thing."* | **Different.** Stock cards are internal management records. The Goods & Materials Report is an official tax document mandated by Sec. 87(3) with rigid statutory compliance. |
-| *"Calculate Output VAT on missing stock using cost price."* | **Wrong.** Section 79/3 requires Output VAT on deemed sales to be calculated based on **Market Value (ราคาตลาด)**, not historical cost. |
-| *"Throwing away spoiled goods doesn't need tax paperwork."* | **Wrong.** To avoid deemed sale VAT on spoiled stock, businesses must follow the Revenue Department's formal destruction guidelines (แจ้งล่วงหน้า, มีผู้สอบบัญชีร่วมเป็นพยานตรวจทำลาย). |
+| *"ยอดไม่ตรง แก้ตัวเลขใน Excel แถวเมื่อ 2 สัปดาห์ก่อนให้ตรงกับที่นับได้ก็จบแล้ว"* | **ผิดกฎหมายร้ายแรง.** ถือเป็นการปลอมแปลงหรือลงรายการเท็จในบัญชีตาม พ.ร.บ.การบัญชี พ.ศ. 2543 ม.20 มีโทษปรับและจำคุก ต้องบันทึกแถวปรับปรุงใหม่ (`ADJ`) พร้อมระบุเอกสารอ้างอิงเสมอ |
+| *"สินค้าขาดแค่นิดหน่อย รวมเข้าไปเป็นต้นทุนขาย (COGS) ไปเลยก็ได้"* | **ผิดมาตรฐานบัญชี.** สินค้าขาดเป็นผลเสียหายจากการดำเนินงาน (Abnormal Loss) ต้องแสดงแยกเป็น "ผลขาดทุนจากสินค้าขาดตรวจนับ" ในค่าใช้จ่ายบริหาร ห้ามปนใน COGS เพราะทำให้ Gross Margin บิดเบือน |
+| *"คิดภาษีขาย 7% จากสินค้าขาด โดยเอาราคาทุนคูณ 7%"* | **ผิดกฎหมายสรรพากร.** มาตรา 79/3(1) บังคับให้คิดภาษีขายจาก **"ราคาตลาด"** ณ วันที่ตรวจพบสินค้าขาด หากใช้ราคาทุนจะถูกสรรพากรประเมินภาษีขาด เบี้ยปรับ 2 เท่า และเงินเพิ่ม 1.5% ต่อเดือน |
+| *"ภาษีขายที่บริษัทต้องจ่ายเพราะของขาด ถือเป็นค่าใช้จ่ายของบริษัท เอาไปหักภาษี ภ.ง.ด.50 ได้"* | **หักไม่ได้.** ภาษีมูลค่าเพิ่มพึงชำระเป็นรายจ่ายต้องห้ามตามมาตรา 65 ตรี (6) แห่งประมวลรัษฎากร ต้องนำยอดภาษีขายนี้บวกกลับในงบภาษีสิ้นปี |
+| *"บริษัทมี Stock Card ใน Excel ละเอียดแล้ว ไม่ต้องทำรายงานสินค้าและวัตถุดิบ ม.87(3) ก็ได้"* | **ไม่ได้.** Stock Card เป็นเอกสารภายใน ส่วนรายงานตาม ม.87(3) เป็นรายงานตามแบบที่อธิบดีกรมสรรพากรกำหนดตามประกาศฉบับที่ 89 หากสรรพากรเรียกตรวจแล้วไม่มี จะมีโทษปรับอาญาตาม ม.90(15) |
+| *"ของใกล้หมดอายุหรือสินค้าแตกหัก เอาไปโยนทิ้งหลังร้านได้เลย ไม่ต้องทำเอกสาร"* | **อันตรายทางภาษี.** หากทิ้งโดยไม่มีการบันทึกทำลายตามระเบียบกรมสรรพากร (ไม่มีการแจ้งสรรพากรล่วงหน้า 30 วัน หรือไม่มีผู้สอบบัญชีเป็นพยาน) สรรพากรจะถือเป็นสินค้าขาดและประเมินภาษีขาย 7% ทันที |
