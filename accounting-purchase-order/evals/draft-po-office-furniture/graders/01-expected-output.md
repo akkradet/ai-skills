@@ -1,0 +1,7 @@
+---
+type: llm
+focus: trace
+weight: 1
+---
+
+The result matches this description: A complete itemized PO with correct totals (48,000 + 37,000 = 85,000; VAT 5,950; total 90,950), flags missing data such as tax IDs instead of inventing them, and states no journal entry is recorded when the PO is issued.
